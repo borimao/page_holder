@@ -8,18 +8,40 @@
 </head>
 <body>
     <div id="app">
-        <div v-for="page in pages" v-bind:key="page.id">
-            <img v-bind:src="page.image">
-            <p>{{ page.id }}  {{ page.title }}</p>
-            <p><a v-bind:href="page.url">{{ page.url }}</a></p>
-            <img v-bind:src="'https://www.google.com/s2/favicons?domain=' + page.url">
-            <button v-on:click="DeletePage(page)">
-                削除
+        <header>
+            
+            <button v-on:click="AddPage()">
+                麦茶ボタン
             </button>
+        </header>
+        <div id="main">
+            <div id="group_select">
+                <div>
+                    <a v-on:click="SetGroup(-1)">
+                        ALL
+                    </a>
+                </div>
+                <div v-for="item in group" v-bind:key="item.id">
+                    <a v-on:click="SetGroup(item.id)">
+                        {{ item.name }}
+                    </a>
+                    <button v-on:click="OpenGroup(item)">開放</button>
+                    <button v-on:click="DeleteGroup(item)">削除</button>
+                </div>
+                <input v-model.lazy="g_name" v-on:change="AddGroup()">
+            </div>
+            <div id="pages">
+                <div v-for="page in computedPages" v-bind:key="page.id">
+                    <img v-bind:src="page.image" class="page_img">
+                    <p>{{ page.id }}  {{ page.title }}</p>
+                    <p><a v-bind:href="page.url" target="_blank">{{ page.url }}</a></p>
+                    <img v-bind:src="'https://www.google.com/s2/favicons?domain=' + page.url">
+                    <button v-on:click="DeletePage(page)">
+                        削除
+                    </button>
+                </div>
+            </div>
         </div>
-        <button v-on:click="AddPage()">
-            麦茶ボタン
-        </button>
     </div>
 
     <script src="vue.js"></script>

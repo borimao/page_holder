@@ -2,5 +2,40 @@ html, body {
   margin: 0;
   padding: 0;
   width: 700px;
+  height: 600px;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+}
+
+#app header {
+  height: 50px;
+  background-color: red;
+}
+
+#app #main {
+  height: calc(100% - 50px);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#app #main #group_select {
+  width: 150px;
+  height: 100%;
+}
+
+#app #main #pages {
+  height: 100%;
+  width: calc(100% - 150px);
+  overflow: scroll;
+  background-color: #f3f3f3;
+}
+
+#app #main #pages .page_img {
+  width: 180px;
 }
 /*# sourceMappingURL=popup.css.map */

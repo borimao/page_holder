@@ -2,10 +2,33 @@ html, body {
     margin: 0;
     padding: 0;
     width: 700px;
+    height: 600px;
+    overflow: hidden;
 }
 
 #app {
-    img{
-        //width: 200px;
+    height: 100%;
+    header {
+        height: 50px;
+        background-color: red;
     }
+    #main {
+        height: calc(100% - 50px);
+        width: 100%;
+        display: flex;
+        #group_select {
+            width: 150px;
+            height: 100%;
+        }
+        #pages {
+            height: 100%;
+            width: calc(100% - 150px);
+            overflow: scroll;
+            background-color: rgb(243, 243, 243);
+            .page_img {
+                width: 180px;
+            }
+        }
+    }
+    
 }

@@ -5,7 +5,11 @@ const app = new Vue({
       group: [],
       g_current: -1,
       g_id: 0,
-      g_name: ""
+      g_name: "",
+      show_menu: false,
+      show_delete: false,
+      slide_text: -1,
+      slide_add: true
   },
   methods: {
       AddPage: function () {
@@ -19,14 +23,17 @@ const app = new Vue({
           });
       },
       AddGroup: function () {
-          this.group.push({
-              id: this.g_id,
-              name: this.g_name
-          })
-          this.g_name = ""
-          this.g_current = this.g_id
-          this.g_id++
-          this.SavedGroup()
+          if(this.g_name){
+            this.group.push({
+                id: this.g_id,
+                name: this.g_name
+            })
+            this.g_name = ""
+            this.g_current = this.g_id
+            this.g_id++
+            this.SavedGroup()
+            this.TextForcus()
+          }
       },
       SetGroup: function (id) {
           this.g_current = id;
@@ -76,6 +83,24 @@ const app = new Vue({
           chrome.storage.local.set({'group_data':JSON.stringify(data)}, ()=>{
               console.log('saved')
           });
+      },
+      SetSlideText: function (id) {
+          if(id == this.slide_text){
+              this.slide_text = -1
+          }else {
+              this.slide_text = id
+          }
+      },
+      TextForcus: function () {
+          if(this.slide_add){
+            this.slide_add = !this.slide_add
+            this.$refs.foucusThis.focus()
+          }else {
+            this.slide_add = !this.slide_add
+            this.$refs.foucusThis.blur()
+            this.g_name = ""
+          }
+          
       }
   },
   computed: {

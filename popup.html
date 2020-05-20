@@ -5,42 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="popup.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div id="app">
         <header>
-            
-            <button v-on:click="AddPage()">
-                麦茶ボタン
-            </button>
+            <a id="open_group" v-on:click="show_menu = !show_menu">
+                <i class="material-icons">menu</i>
+            </a>
+            <a id="show_delete" v-on:click="show_delete = !show_delete">
+                <i class="material-icons" v-if="!show_delete">delete</i>
+                <i class="material-icons" v-else="show_delete">cancel</i>
+            </a>
+            <a v-on:click="AddPage()" id="page_save">
+                <i class="material-icons">add_circle</i>
+            </a>
         </header>
         <div id="main">
-            <div id="group_select">
-                <div>
-                    <a v-on:click="SetGroup(-1)">
-                        ALL
-                    </a>
-                </div>
-                <div v-for="item in group" v-bind:key="item.id">
-                    <a v-on:click="SetGroup(item.id)">
-                        {{ item.name }}
-                    </a>
-                    <button v-on:click="OpenGroup(item)">開放</button>
-                    <button v-on:click="DeleteGroup(item)">削除</button>
-                </div>
-                <input v-model.lazy="g_name" v-on:change="AddGroup()">
-            </div>
             <div id="pages">
-                <div v-for="page in computedPages" v-bind:key="page.id">
-                    <img v-bind:src="page.image" class="page_img">
-                    <p>{{ page.id }}  {{ page.title }}</p>
-                    <p><a v-bind:href="page.url" target="_blank">{{ page.url }}</a></p>
-                    <img v-bind:src="'https://www.google.com/s2/favicons?domain=' + page.url">
-                    <button v-on:click="DeletePage(page)">
-                        削除
-                    </button>
+                <div v-for="page in computedPages" v-bind:key="page.id" class="page">
+                    <div class="image_area">
+                        <img v-bind:src="page.image" class="page_img">
+                    </div>
+                    <div class="page_info">
+                        <p class="page_title">
+                            <span><img v-bind:src="'https://www.google.com/s2/favicons?domain=' + page.url"></span>
+                            {{ page.title }}
+                        </p>
+                        <p class="page_url">{{ page.url }}</p>
+                        <transition name="fade">
+                            <a v-on:click="DeletePage(page)" class="page_delete" v-if="show_delete">
+                                <i class="material-icons">clear</i>
+                            </a>
+                        </transition>
+                    </div>
+                    <a v-bind:href="page.url" target="_blank" class="link_area" v-if="!show_delete"></a>
                 </div>
+                
             </div>
+
+            <transition name="fade">
+                <div id="filter" v-on:click="show_menu = !show_menu"　v-if="show_menu"></div>
+            </transition>
+            <transition name="slide">
+                <div id="group_controller" v-if="show_menu">
+                    <div class="group" v-on:click="SetGroup(-1)">
+                        <p class="mark"><span v-if="g_current == -1">●</span></p>
+                        <div class="text_center full_width">
+                            <p class="g_text">ALL</p>
+                        </div>
+                    </div>
+                    <div v-for="item in group" v-bind:key="item.id" class="group">
+                        <p class="mark"><span v-if="g_current == item.id">●</span></p>
+                        <div class="text_center">
+                            <div class="group_buttons">
+                                <a v-on:click="OpenGroup(item)">開放</a>
+                                <a v-on:click="DeleteGroup(item)">削除</a>
+                            </div>
+                            <transition name="slide">
+                                <div class="g_set" v-on:click="SetGroup(item.id)" v-if="item.id != slide_text">
+                                    <p class="g_text">{{ item.name }}</p>
+                                </div>
+                            </transition>
+                        </div>
+                        <p class="delete_menu" v-on:click="SetSlideText(item.id)">
+                            <i class="material-icons">more_horiz</i>
+                        </p>
+                    </div>
+                    <div class="group">
+                        <p class="mark">＋</p>
+                        <div class="text_center full_width">
+                            <transition name="slide">
+                                <div class="g_set" v-if="slide_add" v-on:click="TextForcus()">
+                                    <p class="g_text">追加</p>
+                                </div>
+                            </transition>
+                            <form v-on:click.prevent="AddGroup()">
+                                <input v-model.lazy="g_name" class="text_box" ref="foucusThis">
+                                <input type="submit" style="display: none;">
+                            </form>
+                            
+                            <p class="delete_menu" v-on:click="TextForcus()">
+                                <i class="material-icons">cancel</i>
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </transition>
         </div>
     </div>
 

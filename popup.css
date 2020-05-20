@@ -6,36 +6,353 @@ html, body {
   overflow: hidden;
 }
 
+a {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+p {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 #app {
   height: 100%;
 }
 
 #app header {
   height: 50px;
-  background-color: red;
+  background-color: #2e2e2e;
+}
+
+#app header a {
+  position: absolute;
+  top: 0px;
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 50px;
+  color: #fff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  z-index: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#app header a:hover {
+  color: #00e1ff;
+}
+
+#app header a i {
+  font-size: 45px;
+}
+
+#app header #page_save {
+  right: 0;
+}
+
+#app header #show_delete {
+  right: 60px;
 }
 
 #app #main {
   height: calc(100% - 50px);
   width: 100%;
+  position: relative;
+}
+
+#pages {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  color: #fff;
+  background-color: #424242;
+}
+
+#pages .page {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  height: 120px;
+  width: 100%;
+  background-color: #202020;
+  border-bottom: #a5a5a5 solid 1px;
+}
+
+#pages .page .image_area {
+  width: 180px;
+  height: 100%;
+  margin: 0 10px 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#pages .page .image_area .page_img {
+  width: 100%;
+}
+
+#pages .page .page_info {
+  width: calc(100% - 200px);
+  position: relative;
+}
+
+#pages .page .page_info .page_title {
+  font-size: 18px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+#pages .page .page_info .page_url {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 10px;
+  color: #b6b6b6;
+}
+
+#pages .page .page_info .page_delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 35px;
+  height: 35px;
+  background-color: #fff;
+  color: #2e2e2e;
+  text-align: center;
+  line-height: 35px;
+  font-size: 30px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#pages .page .page_info .page_delete i {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+#pages .page .page_info .page_delete:hover {
+  background-color: red;
+}
+
+#pages .page .link_area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#pages .page .link_area:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#group_controller {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #2e2e2e;
+  color: #fff;
+}
+
+#group_controller .group {
+  width: 100%;
+  border-bottom: #a5a5a5 solid 1px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-#app #main #group_select {
-  width: 150px;
-  height: 100%;
+#group_controller .group p {
+  margin: 0;
 }
 
-#app #main #pages {
-  height: 100%;
-  width: calc(100% - 150px);
-  overflow: scroll;
-  background-color: #f3f3f3;
+#group_controller .group .mark, #group_controller .group .delete_menu {
+  width: 30px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
 }
 
-#app #main #pages .page_img {
-  width: 180px;
+#group_controller .group .delete_menu {
+  font-size: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#group_controller .group .delete_menu:hover {
+  background-color: #505050;
+}
+
+#group_controller .group .text_center {
+  width: calc(100% - 60px);
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#group_controller .group .text_center .g_set {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2e2e2e;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#group_controller .group .text_center .g_set:hover {
+  background-color: #505050;
+}
+
+#group_controller .group .text_center .g_text {
+  width: 100%;
+  padding: 0 10px 0 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+#group_controller .group .text_center .group_buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  height: 40px;
+  width: 100%;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  color: #a5a5a5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  overflow: hidden;
+}
+
+#group_controller .group .text_center .group_buttons a {
+  background-color: #2e2e2e;
+  color: #fff;
+  width: 40px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 12px;
+  border-radius: 10px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+#group_controller .group .text_center .group_buttons a:hover {
+  background-color: red;
+}
+
+#group_controller .group .text_center form {
+  width: calc(100% - 30px);
+  height: 40px;
+}
+
+#group_controller .group .text_center form .text_box {
+  padding: 0 10px 0 10px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: none;
+  color: #fff;
+  font-size: 12px;
+  width: calc(100% - 20px);
+  height: 40px;
+  background-color: #202020;
+}
+
+#group_controller .group .text_center:hover {
+  background-color: #505050;
+}
+
+#group_controller .group .full_width {
+  width: calc(100% - 30px);
+}
+
+#filter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.slide-enter-active, .slide-leave-active {
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+}
+
+.slide-enter, .slide-leave-to {
+  -webkit-transform: translateY(0px) translateX(-100%);
+          transform: translateY(0px) translateX(-100%);
+}
+
+.fade-enter-active, .fade-leave-active {
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 /*# sourceMappingURL=popup.css.map */
